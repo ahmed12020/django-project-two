@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>home profile</title>
+</head>
+<body>
+<h1>Home Profile</h1>
+{% for profile in profiles %}
+{{profile.name}}<br>
+{{profile.title}}<br>
+{{profile.content}}<br>
+<a href="{% url 'accounts:profile_details' profile.id %}">ProfileDetails</a>
+<hr>
+{% endfor %}
+</body>
+</html>

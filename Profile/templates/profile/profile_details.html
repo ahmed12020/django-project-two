@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Details</title>
+</head>
+<body>
+<h1>Profile Details</h1>
+<h1>{{details.name}}</h1>
+<h1>{{details.title}}</h1>
+<h1>{{details.content}}</h1>
+<a href="{% url 'accounts:profile' %}">Home Profile</a>
+
+<form method="post" action="{% url 'accounts:likes_button' %}">
+    {% csrf_token %}
+    {% if is_liked %}
+    <button type="submit" name="details_id" value="{{details.id}}">DisLike</button>
+    {% else %}
+    <button type="submit" name="details_id" value="{{details.id}}">Like</button>
+    {% endif %}
+</form>
+
+
+
+<form method="post" action="{% url 'accounts:faves' details.id %}">
+    {% csrf_token %}
+    {% if is_fav %}
+    <button type="submit" name="details_id" value="{{details.id}}">DisFavourite</button>
+    {% else %}
+    <button type="submit" name="details_id" value="{{details.id}}">Favourite</button>
+    {% endif %}
+</form>
+<br>
+<a href="{% url 'accounts:comments' details.id %}">Add Comment</a>
+
+<h1>Comments ......</h1>
+{% if not comments %}
+No Comment.....
+
+{% else %}
+{% for comment in comments  %}
+{{comment.name}}<br>
+{{comment.email}}<br>
+{{comment.body}}<br>
+{% endfor %}
+{% endif %}
+
+<br>
+
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="submit"/>
+</form>
+
+
+
+
+
+
+
+
+</body>
+</html>
